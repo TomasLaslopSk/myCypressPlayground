@@ -4,6 +4,10 @@ export class Helpers {
     return cy.get(`[data-test-id=${selector}]`)
   }
 
+  static getIdSelectorContainsText(selector: string | number, text: string) {
+    return cy.get(`[data-cy=${selector}]`).contains(text)
+  }
+
   static getClassSelector(selector: string) {
     return cy.get(selector)
   }

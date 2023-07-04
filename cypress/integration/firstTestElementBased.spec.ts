@@ -13,14 +13,6 @@ const testOptions = {
   resolutionY: 1080,
 }
 
-// Handled selectors
-let inputFieldElement = Helpers.getClassSelector(addTodoPageIds.newTodoInputField)
-let generalListElement = Helpers.getClassSelector(addTodoPageIds.todoListItem)
-let firstListElement = Helpers.getElementFromListByIndexSelector(addTodoPageIds.todoListItem, 0)
-let firstListElementLabel = Helpers.getChildSelector(addTodoPageIds.todoListItem, addTodoPageIds.todoListItemLabel, 0)
-let secondListElementLabel = Helpers.getChildSelector(addTodoPageIds.todoListItem, addTodoPageIds.todoListItemLabel, 1)
-let firstListElementToggleButton = Helpers.getChildSelector(addTodoPageIds.todoListItem, addTodoPageIds.toggle, 0)
-
 // Testing data 
 
 let TODO_ITEM_ONE = 'buy some cheese'
@@ -38,13 +30,13 @@ const tests: Array<TestStep> = [
   {
     name: "Test 1",
     steps: () => [
-      ElementActions.enterValueToElement(inputFieldElement, TODO_ITEM_ONE),
-      ElementActions.pressEnterInInputElement(inputFieldElement),
-      ElementActions.enterValueToElement(inputFieldElement, TODO_ITEM_TWO),
-      ElementActions.pressEnterInInputElement(inputFieldElement),
-      ElementAssertions.assertElementContainsTextElement(firstListElementLabel, TODO_ITEM_ONE),
-      ElementAssertions.assertElementContainsTextElement(secondListElementLabel, TODO_ITEM_TWO),
-      ElementAssertions.assertElementsInListCountElement(generalListElement, 2)
+      ElementActions.enterValueToElement(Helpers.getClassSelector(addTodoPageIds.newTodoInputField), TODO_ITEM_ONE),
+      ElementActions.pressEnterInInputElement(Helpers.getClassSelector(addTodoPageIds.newTodoInputField)),
+      ElementActions.enterValueToElement(Helpers.getClassSelector(addTodoPageIds.newTodoInputField), TODO_ITEM_TWO),
+      ElementActions.pressEnterInInputElement(Helpers.getClassSelector(addTodoPageIds.newTodoInputField)),
+      ElementAssertions.assertElementContainsTextElement(Helpers.getElementFromListByIndexSelector(addTodoPageIds.todoListItem, 0), TODO_ITEM_ONE),
+      ElementAssertions.assertElementContainsTextElement(Helpers.getChildSelector(addTodoPageIds.todoListItem, addTodoPageIds.todoListItemLabel, 1), TODO_ITEM_TWO),
+      ElementAssertions.assertElementsInListCountElement(Helpers.getClassSelector(addTodoPageIds.todoListItem), 2)
     ],
   },
 
@@ -53,14 +45,14 @@ const tests: Array<TestStep> = [
   {
     name: "Test 2",
     steps: () => [
-      ElementActions.enterValueToElement(inputFieldElement, TODO_ITEM_ONE),
-      ElementActions.pressEnterInInputElement(inputFieldElement),
-      ElementActions.enterValueToElement(inputFieldElement, TODO_ITEM_TWO),
-      ElementActions.pressEnterInInputElement(inputFieldElement),
-      ElementActions.checkElementInListElement(firstListElementToggleButton),
-      ElementAssertions.assertElementHasClass(firstListElement, 'completed', true),
-      ElementActions.checkElementInListElement(firstListElementToggleButton, false),
-      ElementAssertions.assertElementHasClass(firstListElement, 'completed', false)
+      ElementActions.enterValueToElement(Helpers.getClassSelector(addTodoPageIds.newTodoInputField), TODO_ITEM_ONE),
+      ElementActions.pressEnterInInputElement(Helpers.getClassSelector(addTodoPageIds.newTodoInputField)),
+      ElementActions.enterValueToElement(Helpers.getClassSelector(addTodoPageIds.newTodoInputField), TODO_ITEM_TWO),
+      ElementActions.pressEnterInInputElement(Helpers.getClassSelector(addTodoPageIds.newTodoInputField)),
+      ElementActions.checkElementInListElement(Helpers.getChildSelector(addTodoPageIds.todoListItem, addTodoPageIds.toggle, 0)),
+      ElementAssertions.assertElementHasClass(Helpers.getElementFromListByIndexSelector(addTodoPageIds.todoListItem, 0), 'completed', true),
+      ElementActions.checkElementInListElement(Helpers.getChildSelector(addTodoPageIds.todoListItem, addTodoPageIds.toggle, 0), false),
+      ElementAssertions.assertElementHasClass(Helpers.getElementFromListByIndexSelector(addTodoPageIds.todoListItem, 0), 'completed', false)
     ]
   },
 
@@ -69,14 +61,14 @@ const tests: Array<TestStep> = [
   {
     name: "Test 3",
     steps: () => [
-      ElementActions.enterValueToElement(inputFieldElement, TODO_ITEM_ONE),
-      ElementActions.pressEnterInInputElement(inputFieldElement),
-      ElementActions.enterValueToElement(inputFieldElement, TODO_ITEM_TWO),
-      ElementActions.pressEnterInInputElement(inputFieldElement),
+      ElementActions.enterValueToElement(Helpers.getClassSelector(addTodoPageIds.newTodoInputField), TODO_ITEM_ONE),
+      ElementActions.pressEnterInInputElement(Helpers.getClassSelector(addTodoPageIds.newTodoInputField)),
+      ElementActions.enterValueToElement(Helpers.getClassSelector(addTodoPageIds.newTodoInputField), TODO_ITEM_TWO),
+      ElementActions.pressEnterInInputElement(Helpers.getClassSelector(addTodoPageIds.newTodoInputField)),
       ElementActions.pressElement(Helpers.getSiblingSelector(TODO_ITEM_ONE, addTodoPageIds.input)),
-      ElementAssertions.assertElementHasClass(firstListElement, 'completed', true),
+      ElementAssertions.assertElementHasClass(Helpers.getElementFromListByIndexSelector(addTodoPageIds.todoListItem, 0), 'completed', true),
       ElementActions.pressElement(Helpers.getSiblingSelector(TODO_ITEM_ONE, addTodoPageIds.input)),
-      ElementAssertions.assertElementHasClass(firstListElement, 'completed', false)
+      ElementAssertions.assertElementHasClass(Helpers.getElementFromListByIndexSelector(addTodoPageIds.todoListItem, 0), 'completed', false)
     ]
   }
 ];
